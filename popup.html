@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <style>
     body {
-      width: 250px;
+      width: 280px; /* Aumenté un poco el ancho */
       padding: 16px;
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -16,11 +16,7 @@
       justify-content: space-between;
       margin-bottom: 16px;
     }
-    h1 {
-      margin: 0;
-      font-size: 16px;
-      font-weight: 600;
-    }
+    h1 { margin: 0; font-size: 16px; font-weight: 600; }
     .toggle-container {
       display: flex;
       align-items: center;
@@ -30,10 +26,7 @@
       border-radius: 8px;
       margin-bottom: 12px;
     }
-    .toggle-label {
-      font-weight: 500;
-      color: #0f1419;
-    }
+    .toggle-label { font-weight: 500; color: #0f1419; }
     .toggle-switch {
       position: relative;
       width: 44px;
@@ -43,9 +36,7 @@
       cursor: pointer;
       transition: background 0.2s;
     }
-    .toggle-switch.enabled {
-      background: #1d9bf0;
-    }
+    .toggle-switch.enabled { background: #1d9bf0; }
     .toggle-switch::after {
       content: '';
       position: absolute;
@@ -58,21 +49,61 @@
       transition: transform 0.2s;
       box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
-    .toggle-switch.enabled::after {
-      transform: translateX(20px);
-    }
+    .toggle-switch.enabled::after { transform: translateX(20px); }
     .status {
       font-size: 12px;
       color: #536471;
       margin-top: 8px;
       text-align: center;
     }
-    .info {
-      font-size: 12px;
-      color: #536471;
-      margin-top: 12px;
-      padding-top: 12px;
+    
+    /* Nuevos estilos para la sección de bloqueo */
+    .block-section {
+      margin-top: 16px;
       border-top: 1px solid #eff3f4;
+      padding-top: 12px;
+    }
+    .block-title { font-weight: 600; margin-bottom: 8px; font-size: 13px; }
+    .input-group { display: flex; gap: 8px; margin-bottom: 12px; }
+    input {
+      flex: 1;
+      padding: 6px 8px;
+      border: 1px solid #cfd9de;
+      border-radius: 4px;
+      outline: none;
+    }
+    input:focus { border-color: #1d9bf0; }
+    button {
+      background: #0f1419;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 0 12px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    button:hover { background: #272c30; }
+    #blockedList {
+      max-height: 150px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .blocked-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #eff3f4;
+      padding: 6px 10px;
+      border-radius: 16px;
+      font-size: 13px;
+    }
+    .remove-btn {
+      color: #f4212e;
+      cursor: pointer;
+      font-weight: bold;
+      margin-left: 8px;
     }
   </style>
 </head>
@@ -85,14 +116,17 @@
     <span class="toggle-label">Enable Extension</span>
     <div class="toggle-switch" id="toggleSwitch"></div>
   </div>
-  
   <div class="status" id="status">Loading...</div>
-  
-  <div class="info">
-    Shows country flags next to Twitter usernames based on account location.
+
+  <div class="block-section">
+    <div class="block-title">Block content from countries</div>
+    <div class="input-group">
+      <input type="text" id="countryInput" placeholder="Ex: Argentina, France...">
+      <button id="addBtn">Add</button>
+    </div>
+    <div id="blockedList"></div>
   </div>
 
   <script src="popup.js"></script>
 </body>
 </html>
-
